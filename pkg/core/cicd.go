@@ -30,6 +30,7 @@ type CicdGetter interface {
 
 type CicdInterface interface {
 	CreateJob(ctx context.Context) error
+	AddViewJob(ctx context.Context) error
 }
 
 type cicd struct {
@@ -49,4 +50,8 @@ func newCicd(c *pixiu) CicdInterface {
 func (c *cicd) CreateJob(ctx context.Context) error {
 	fmt.Println("do test cicd")
 	return nil
+}
+
+func (c *cicd) AddViewJob(ctx context.Context) error {
+
 }

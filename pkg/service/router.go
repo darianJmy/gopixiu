@@ -26,6 +26,7 @@ func InitCicdRouter(ginEngine *gin.Engine) {
 	cicdRouter := ginEngine.Group("/cicd")
 	{
 		cicdRouter.POST("createJob", createJob)
+		cicdRouter.POST("addViewJob", addViewJob)
 	}
 }
 

@@ -33,3 +33,13 @@ func createJob(c *gin.Context) {
 
 	setSuccess(c, r)
 }
+
+func addViewJob(c *gin.Context) {
+	r := NewResponse()
+	err := pixiu.Cicd().AddViewJob(context.TODO())
+	if err != nil {
+		setFailed(c, r, err)
+		return
+	}
+	setSuccess(c, r)
+}
