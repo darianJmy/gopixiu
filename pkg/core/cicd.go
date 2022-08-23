@@ -34,10 +34,10 @@ type CicdGetter interface {
 }
 
 type CicdInterface interface {
-	RunJob(ctx context.Context) error
+	RunJob(ctx context.Context, jobName string) error
 	CreateJob(ctx context.Context) error
-	DeleteJob(ctx context.Context) error
-	AddViewJob(ctx context.Context) error
+	DeleteJob(ctx context.Context, jobName string) error
+	AddViewJob(ctx context.Context, viewName string) error
 }
 
 type cicd struct {
@@ -56,8 +56,8 @@ func newCicd(c *pixiu) CicdInterface {
 	}
 }
 
-func (c *cicd) RunJob(ctx context.Context) error {
-	queueid, err := c.cicdDriver.BuildJob(ctx, "test", nil)
+func (c *cicd) RunJob(ctx context.Context, jobName string) error {
+	queueid, err := c.cicdDriver.BuildJob(ctx, jobName, nil)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -86,8 +86,8 @@ func (c *cicd) CreateJob(ctx context.Context) error {
 	return nil
 }
 
-func (c *cicd) DeleteJob(ctx context.Context) error {
-	_, err := c.cicdDriver.DeleteJob(ctx, "test")
+func (c *cicd) DeleteJob(ctx context.Context, jobName string) error {
+	_, err := c.cicdDriver.DeleteJob(ctx, jobName)
 	if err != nil {
 		log.Logger.Errorf("failed to delete job %s: %v", "test", err)
 		return err
@@ -96,8 +96,8 @@ func (c *cicd) DeleteJob(ctx context.Context) error {
 	return nil
 }
 
-func (c *cicd) AddViewJob(ctx context.Context) error {
-	view, err := c.cicdDriver.CreateView(ctx, "test", gojenkins.LIST_VIEW)
+func (c *cicd) AddViewJob(ctx context.Context, viewName string) error {
+	view, err := c.cicdDriver.CreateView(ctx, viewName, gojenkins.LIST_VIEW)
 	if err != nil {
 		log.Logger.Errorf("failed to create view %s: %v", "test", err)
 		return err

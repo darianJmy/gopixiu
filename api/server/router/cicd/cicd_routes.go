@@ -18,6 +18,7 @@ package cicd
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
 
@@ -27,7 +28,13 @@ import (
 
 func (s *cicdRouter) runJob(c *gin.Context) {
 	r := httputils.NewResponse()
-	err := pixiu.CoreV1.Cicd().RunJob(context.TODO())
+
+	jobName := c.Param("jobName")
+	if jobName == "" {
+		httputils.SetFailed(c, r, fmt.Errorf("jobName should not be empty"))
+		return
+	}
+	err := pixiu.CoreV1.Cicd().RunJob(context.TODO(), jobName)
 	if err != nil {
 		httputils.SetFailed(c, r, err)
 		return
@@ -49,7 +56,13 @@ func (s *cicdRouter) createJob(c *gin.Context) {
 
 func (s *cicdRouter) deleteJob(c *gin.Context) {
 	r := httputils.NewResponse()
-	err := pixiu.CoreV1.Cicd().DeleteJob(context.TODO())
+
+	jobName := c.Param("jobName")
+	if jobName == "" {
+		httputils.SetFailed(c, r, fmt.Errorf("jobName should not be empty"))
+		return
+	}
+	err := pixiu.CoreV1.Cicd().DeleteJob(context.TODO(), jobName)
 	if err != nil {
 		httputils.SetFailed(c, r, err)
 		return
@@ -60,7 +73,13 @@ func (s *cicdRouter) deleteJob(c *gin.Context) {
 
 func (s *cicdRouter) addViewJob(c *gin.Context) {
 	r := httputils.NewResponse()
-	err := pixiu.CoreV1.Cicd().AddViewJob(context.TODO())
+
+	viewName := c.Param("viewName")
+	if viewName == "" {
+		httputils.SetFailed(c, r, fmt.Errorf("viewName should not be empty"))
+		return
+	}
+	err := pixiu.CoreV1.Cicd().AddViewJob(context.TODO(), viewName)
 	if err != nil {
 		httputils.SetFailed(c, r, err)
 		return
