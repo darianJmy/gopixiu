@@ -73,5 +73,13 @@ func (s *cloudRouter) initRoutes(ginEngine *gin.Engine) {
 		cloudRoute.DELETE("/apps/v1/:cloud_name/namespaces/:namespace/daemonsets/:object_name", s.deleteDaemonSet)
 		cloudRoute.GET("/apps/v1/:cloud_name/namespaces/:namespace/daemonsets/:object_name", s.getDaemonSet)
 		cloudRoute.GET("/apps/v1/:cloud_name/namespaces/:namespace/daemonsets", s.listDaemonsets)
+
+		// Ingress API
+		cloudRoute.POST("/networking/v1/:cloud_name/namespaces/:namespace/ingresses/:object_name", s.createDaemonSet)
+		cloudRoute.PUT("/networking/v1/:cloud_name/namespaces/:namespace/ingresses/:object_name", s.updateDaemonSet)
+		cloudRoute.DELETE("/networking/v1/:cloud_name/namespaces/:namespace/ingresses/:object_name", s.deleteDaemonSet)
+		cloudRoute.GET("/networking/v1/:cloud_name/namespaces/:namespace/ingresses/:object_name", s.getDaemonSet)
+		cloudRoute.GET("/networking/v1/:cloud_name/namespaces/:namespace/ingresses", s.listDaemonsets)
+
 	}
 }

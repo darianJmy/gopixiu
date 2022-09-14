@@ -43,3 +43,7 @@ func (c *cloud) DaemonSets(cloud string) pixiukubernetes.DaemonSetInterface {
 func (c *cloud) Jobs(cloud string) pixiukubernetes.JobInterface {
 	return pixiukubernetes.NewJobs(clientSets.Get(cloud), cloud)
 }
+
+func (c *cloud) Ingresses(cloud string) pixiukubernetes.IngressInterface {
+	return pixiukubernetes.NewIngress(clientSets.Get(cloud), cloud)
+}
